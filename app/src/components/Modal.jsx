@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { ethers } from "ethers";
 import { X } from "lucide-react";
+import toast, { Toaster } from 'react-hot-toast';
 
 import contract from '../../artifacts/contracts/Kickstarter.sol/Kickstarter.json';
 
@@ -68,11 +69,19 @@ export function CreateKickstarterModal({ open, onClose, onCreated }) {
       const contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
 
       // Get id then create
-      const id =  await contract.createProject.staticCall(title.trim(), goalWei, endTimestamp)
+      const id = await contract.createProject.staticCall(title.trim(), goalWei, endTimestamp)
       const tx = await contract.createProject(title.trim(), goalWei, endTimestamp);
-      const receipt = await tx.wait();
-      console.log(id);
-      console.log(receipt);
+
+      await tx.wait();
+      toast.success('Project Created',
+        {
+          style: {
+            borderRadius: '10px',
+            background: '#333',
+            color: '#fff',
+          },
+        }
+      );
 
       const createdProject = {
         owner: signer,

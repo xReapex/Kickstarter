@@ -6,6 +6,7 @@ import { CreateKickstarterModal } from './components/Modal.jsx';
 import { ProjectCard, mapOnchainToUI } from "./components/ProjectCard.jsx";
 import { connectWallet, formatAddress } from "./web3/wallet.jsx";
 import { loadAllKickstarter } from './js/KickstarterManager.js';
+import { Toaster } from 'react-hot-toast';
 
 export default function App() {
   const [projects, setProjects] = useState([]);
@@ -70,6 +71,7 @@ export default function App() {
     <div className="min-h-screen bg-gradient-to-b from-white to-gray-50 dark:from-neutral-950 dark:to-neutral-900 text-gray-900 dark:text-white">
       <header className="sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-white/60 dark:supports-[backdrop-filter]:bg-neutral-950/60 border-b border-gray-200 dark:border-neutral-800">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
+          <Toaster/>
           <div className="flex items-center gap-3">
             <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-600 via-purple-600 to-pink-500" />
             <h1 className="text-xl font-bold">Crypto Kickstarter</h1>

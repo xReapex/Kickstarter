@@ -5,6 +5,7 @@ import { getPriceCoinGecko } from "../js/priceFeed.js";
 import { closeProject, contribute } from '../js/KickstarterManager.js';
 import { formatAddress } from "../web3/wallet.jsx";
 import { ethers } from "ethers";
+import toast from 'react-hot-toast';
 
 function Stat({ icon: Icon, children, title }) {
   return (
@@ -214,6 +215,15 @@ export function ProjectCard({ project, onContribute, onRefresh }) {
     setLoading(true);
     try {
       await closeProject(localProject.id);
+      toast.error('Project Closed',
+        {
+          style: {
+            borderRadius: '10px',
+            background: '#ea3d40e6',
+            color: '#fff',
+          },
+        }
+      );
       if (typeof onRefresh === "function") await onRefresh();
       else setLocalProject(prev => ({ ...prev, isOpen: false }));
     } catch (err) {
